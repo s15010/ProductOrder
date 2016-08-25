@@ -186,7 +186,7 @@ public class ProductView extends AppCompatActivity  {
         //.1SQLiteDatabaseオブジェクト取得
         db = myHelper.getReadableDatabase();
 
-        testAccountInsert();
+//        testAccountInsert();
 
         //2.
         String[] cols = {MyHelper.Columns._ID, MyHelper.Columns.productName, MyHelper.Columns.PRICE};
@@ -340,6 +340,8 @@ public class ProductView extends AppCompatActivity  {
 
     public boolean login(String mail, String pass) {
 
+        Log.e("account :", mail + " " + pass);
+
         //ログインの処理
         db = myHelper.getReadableDatabase();
 
@@ -347,15 +349,13 @@ public class ProductView extends AppCompatActivity  {
                 new String[]{
                         MyHelper.AccountColumns.mailAddress
                 },
-                String.format("%s = %s",
+                String.format("%s = %s AND %s = %s",
                         MyHelper.AccountColumns.mailAddress, "\"" + mail + "\"",
-                        MyHelper.AccountColumns.password, "\"" + pass + "\""
-                ),
+                        MyHelper.AccountColumns.password, "\"" + pass + "\""),
                 null, null, null, null);
         cursor.moveToFirst();
 
-
-        Log.e("cursor :", String.valueOf(cursor.getString(0)));
+        Log.e("cursor :", String.valueOf(cursor.getCount()));
 
         String test = "";
 
@@ -363,11 +363,11 @@ public class ProductView extends AppCompatActivity  {
             test = cursor.getString(0);
         }
         Log.d("test", test + mail);
-
         if (cursor.getCount() == 0) {
             Log.e("cursor :", "false");
             return false;
         }
+
         return true;
     }
 
@@ -375,8 +375,8 @@ public class ProductView extends AppCompatActivity  {
         db = myHelper.getWritableDatabase();
 
         // 一旦削除
-        int count = db.delete(MyHelper.ACCOUNT_TABLE_NAME, null, null);
-        Log.d("initTable", "count =" + count);
+//        int count = db.delete(MyHelper.ACCOUNT_TABLE_NAME, null, null);
+//        Log.d("initTable", "count =" + count);
 
         ContentValues values = new ContentValues();
         values.put(MyHelper.AccountColumns.firstName, "隆史");
