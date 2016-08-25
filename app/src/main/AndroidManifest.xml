@@ -19,6 +19,7 @@
         <activity android:name=".CreateMenber"></activity>
         <activity android:name=".OrderCheck">
         </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ChengeMenberInfo"></activity>
         <activity
             android:name=".Confirm_Activity"

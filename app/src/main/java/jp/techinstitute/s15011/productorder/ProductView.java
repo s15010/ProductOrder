@@ -110,6 +110,7 @@ public class ProductView extends AppCompatActivity  {
 
         if  (id == R.id.optLogout) {//ログアウトの処理
 
+
         }else if(id == R.id.optChengeAccontInfo) {//ChengeMenberinfoに飛ぶ
             Intent i = new Intent(this, ChengeMenberInfo.class);
             startActivity(i);
@@ -278,7 +279,7 @@ public class ProductView extends AppCompatActivity  {
 
                 }
 
-                Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
+                /*Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
                         new String[]{
                                 MyHelper.OrderBeforeColumns.itemName,
                                 MyHelper.OrderBeforeColumns.price
@@ -294,7 +295,13 @@ public class ProductView extends AppCompatActivity  {
 
                 while(cursor.moveToNext()){
                     Log.e("Oreder :", cursor.getString(0)+ " : " + cursor.getInt(1));
-                }
+                }*/
+
+
+                Intent i = new Intent(ProductView.this, MainActivity.class);
+                Log.d("YOGI", "Create");
+                startActivity(i);
+
             }
         });
 /*

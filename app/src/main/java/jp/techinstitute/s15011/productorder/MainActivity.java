@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_check);
 
+        myHelper = new MyHelper(this);
+
         SQLiteDatabase db = myHelper.getReadableDatabase();
 
 
-        Cursor cursor = db.query(
+        /*Cursor cursor = db.query(
                 "list_table", new String[] {"_id", "data"},
                 null, null, null, null, "_id DESC");
 
@@ -32,14 +35,35 @@ public class MainActivity extends AppCompatActivity {
             cursor.close();
             db.close();
             return;
+        }*/
+
+        Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
+                new String[]{
+                        MyHelper.OrderBeforeColumns.itemName,
+                        MyHelper.OrderBeforeColumns.price
+                },
+                String.format("%s = %s",
+                        MyHelper.AccountColumns.mailAddress, "\"test@gmail.com\""
+                ),
+                null, null, null, null);
+        cursor.moveToFirst();
+        Log.e("count :", String.valueOf(cursor.getCount()));
+
+//                    Log.e("cursor :", String.valueOf(cursor.getString(0)));
+
+        while(cursor.moveToNext()) {
+            Log.e("Oreder :", cursor.getString(0) + " : " + cursor.getInt(1));
         }
+
+        
+
+
 
         int ProductId = cursor.getColumnIndex(MyHelper.Columns.ID);
         int ProductName = cursor.getColumnIndex(MyHelper.Columns.productName);
         int ProductPrice = cursor.getColumnIndex(MyHelper.Columns.PRICE);
         int ProductStock = cursor.getColumnIndex(MyHelper.Columns.STOCK);
 
-        
 
 
         Button btn = (Button) findViewById(R.id.btnBuy);
