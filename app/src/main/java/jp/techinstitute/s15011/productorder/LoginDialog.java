@@ -31,8 +31,8 @@ public class LoginDialog extends DialogFragment {
 
 
         //めんどくさいので入力しておく
-        editMailAddress.setText("test@gmail.com");
-        editPassword.setText("test");
+        /*editMailAddress.setText("test@gmail.com");
+        editPassword.setText("test");*/
 
         Button btn3 = (Button)view.findViewById(R.id.optCreateAccount);
         btn3.setOnClickListener(new View.OnClickListener() {

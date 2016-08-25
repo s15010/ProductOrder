@@ -28,9 +28,16 @@ public class ChengeMenberInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chenge_menber_info);
         Button button = (Button) findViewById(R.id.btnConfirm);
+        Button button2 = (Button) findViewById(R.id.btnCancel);
         myHelper = new MyHelper(this);
         set_Prodata();
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
 

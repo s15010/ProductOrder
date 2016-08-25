@@ -38,6 +38,8 @@ public class ProductView extends AppCompatActivity  {
     private List<ProductItem> selectProduct;
     private List<ProductItem> productList;
 
+    private String mailSave;
+
 
     private class ProductItem {
         int _id;
@@ -178,8 +180,6 @@ public class ProductView extends AppCompatActivity  {
         //TODO recommendlistにデータを入れる
 
 
-
-
         //Product(商品一覧)listの作成
         productList = new ArrayList<>();
         //listに仮のデータを入れる
@@ -262,6 +262,10 @@ public class ProductView extends AppCompatActivity  {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                Log.e("Mail :", mailSave);
+
                 for (ProductItem productItem : selectProduct) {
 
                     // 列に対応する値をセットする
@@ -270,7 +274,7 @@ public class ProductView extends AppCompatActivity  {
                     values.put(MyHelper.OrderBeforeColumns.itemName, productItem.name);
                     values.put(MyHelper.OrderBeforeColumns.quantity, 1);
                     values.put(MyHelper.OrderBeforeColumns.price, productItem.price);
-                    values.put(MyHelper.OrderBeforeColumns.mailAddress, "test@gmail.com");
+                    values.put(MyHelper.OrderBeforeColumns.mailAddress, mailSave);
 
                     // データベースに行を追加する
                     long id = db.insert(MyHelper.ORDER_BEFORE_NAME, null, values);
@@ -284,13 +288,13 @@ public class ProductView extends AppCompatActivity  {
 
                 }
 
-                Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
+                /*Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
                         new String[]{
                                 MyHelper.OrderBeforeColumns.itemName,
                                 MyHelper.OrderBeforeColumns.price
                         },
                         String.format("%s = %s",
-                                MyHelper.AccountColumns.mailAddress, "\"test@gmail.com\""
+                                MyHelper.AccountColumns.mailAddress, "\"" + mail + "\""
                         ),
                         null, null, null, null);
                 cursor.moveToFirst();
@@ -300,7 +304,7 @@ public class ProductView extends AppCompatActivity  {
 
                 while(cursor.moveToNext()){
                     Log.e("Oreder :", cursor.getString(0)+ " : " + cursor.getInt(1));
-                }
+                }*/
 
 
                 Intent i = new Intent(ProductView.this, MainActivity.class);
@@ -368,8 +372,16 @@ public class ProductView extends AppCompatActivity  {
             return false;
         }
 
+        SharedPreferences data = getSharedPreferences("Maildata", Context.MODE_PRIVATE);
+        mailSave = data.getString("Mailsave", "none");
+
+        TextView textView = (TextView)findViewById(R.id.textView);
+        textView.setText(mailSave);
+
         return true;
     }
+
+
 
     private void testAccountInsert() {
         db = myHelper.getWritableDatabase();

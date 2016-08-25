@@ -13,7 +13,7 @@ public class OrderCancel extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order_cancel);
-
+/*
 		Button btn = (Button) findViewById(R.id.btncancel);
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -52,7 +52,7 @@ public class OrderCancel extends AppCompatActivity {
 			}
 
 
-		});
+		});*/
 
 	}
 }

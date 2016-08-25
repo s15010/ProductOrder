@@ -112,7 +112,7 @@ public class CreateMenber extends AppCompatActivity {
     }
 
     private void chengeactivity(){
-        Intent intent = new Intent(this, ChengeMenberInfo.class);
+        Intent intent = new Intent(this, ProductView.class);
         startActivity(intent);
     }
 
