@@ -36,13 +36,12 @@ public class CreateDatebase extends SQLiteOpenHelper {
 
     public CreateDatebase(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        Log.d("nakanisi", "osamu");
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(sql_CREATE_TABLE);
-        Log.d("nakanisi", "osamu");
+
     }
 
     @Override

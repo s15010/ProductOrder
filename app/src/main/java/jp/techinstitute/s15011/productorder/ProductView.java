@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -130,6 +131,8 @@ public class ProductView extends AppCompatActivity  {
             builder.setView(layout);
             builder.create().show();
 
+
+
             Button btn = (Button)layout.findViewById(R.id.DeleateAccount_OK);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,6 +150,8 @@ public class ProductView extends AppCompatActivity  {
 
                 }
             });
+
+
 
 
         }else if(id == R.id.optOrderCancel){//OrderCancelに移行
@@ -401,5 +406,11 @@ public class ProductView extends AppCompatActivity  {
         //アカウント削除cancelボタンを押した時の処理
     }
 
+    private String getEmail(){
+        SharedPreferences data = getSharedPreferences("Maildata", Context.MODE_PRIVATE);
+        String getdata = data.getString("Mailsave", "");
+        Log.d("itman", "yuki");
+        return getdata;
+    }
 
 }

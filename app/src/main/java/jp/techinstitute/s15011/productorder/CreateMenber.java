@@ -1,8 +1,10 @@
 package jp.techinstitute.s15011.productorder;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -41,27 +44,22 @@ public class CreateMenber extends AppCompatActivity {
 
                 final CreateMenberStr account = new CreateMenberStr();
 
-                TextView Last_name = (TextView)findViewById(R.id.editLastName);
-                account.last_name = Last_name.getText().toString();
-
-                TextView First_name = (TextView)findViewById(R.id.editFirstName);
-                account.first_name = First_name.getText().toString();
-
-                TextView Mail = (TextView)findViewById(R.id.editMail);
-                account.mailaddress = Mail.getText().toString();
-
-                TextView Home_Address = (TextView)findViewById(R.id.editAddress);
-                account.address = Home_Address.getText().toString();
-
-                TextView Password = (TextView)findViewById(R.id.editPassword);
-                account.password = Password.getText().toString();
-
-                TextView Confirm_Password = (TextView)findViewById(R.id.Confirm_Password);
-                String confirm_password = Confirm_Password.getText().toString();
-
+                EditText Last_name = (EditText) findViewById(R.id.editLastName);
+                EditText First_name = (EditText) findViewById(R.id.editFirstName);
+                EditText Mail = (EditText) findViewById(R.id.editMail);
+                EditText Home_Address = (EditText) findViewById(R.id.editAddress);
+                EditText Password = (EditText) findViewById(R.id.editPassword);
+                EditText Confirm_Password = (EditText) findViewById(R.id.Confirm_Password);
                 Spinner spinner = (Spinner) findViewById(R.id.spinner);
-                account.prefectureid = spinner.getSelectedItem().toString();
 
+                account.last_name = Last_name.getText().toString();
+                account.first_name = First_name.getText().toString();
+                account.mailaddress = Mail.getText().toString();
+                account.address = Home_Address.getText().toString();
+                account.password = Password.getText().toString();
+                String confirm_password = Confirm_Password.getText().toString();
+                account.prefectureid = spinner.getSelectedItem().toString();
+                Log.d("aiueo", "kakikukeko");
 
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateMenber.this);
 
@@ -92,9 +90,13 @@ public class CreateMenber extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
+                            setShare(account.mailaddress);
+                            Log.d("unko", "unti");
+
                             String err_msg = insertMenber(account);
                             if(err_msg.equals("")){
                                 chengeactivity();
+
                             }else  {
                                 alertDialog.setMessage("アドレス被ってる");
                                 alertDialog.create().show();
@@ -110,7 +112,7 @@ public class CreateMenber extends AppCompatActivity {
     }
 
     private void chengeactivity(){
-        Intent intent = new Intent(this, ProductView.class);
+        Intent intent = new Intent(this, ChengeMenberInfo.class);
         startActivity(intent);
     }
 
@@ -161,12 +163,20 @@ public class CreateMenber extends AppCompatActivity {
         Log.d("la", "la");
 
         // データベースに行を追加する
-        long id = db.insert(MyHelper.TABLE_NAME, null, values);
+        long id = db.insert(MyHelper.ACCOUNT_TABLE_NAME, null, values);
         if (id == -1) {
             Log.d("Database", "行の追加に失敗");
         }
         db.close();
 
         return err_msg;
+    }
+
+    private void setShare(String mail){
+        SharedPreferences data = getSharedPreferences("Maildata", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putString("Mailsave", mail);
+        editor.putInt("Totalordersave",0);
+        editor.apply();
     }
 }
