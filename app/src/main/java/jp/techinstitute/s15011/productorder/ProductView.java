@@ -284,7 +284,7 @@ public class ProductView extends AppCompatActivity  {
 
                 }
 
-                /*Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
+                Cursor cursor = db.query(MyHelper.ORDER_BEFORE_NAME,
                         new String[]{
                                 MyHelper.OrderBeforeColumns.itemName,
                                 MyHelper.OrderBeforeColumns.price
@@ -300,7 +300,7 @@ public class ProductView extends AppCompatActivity  {
 
                 while(cursor.moveToNext()){
                     Log.e("Oreder :", cursor.getString(0)+ " : " + cursor.getInt(1));
-                }*/
+                }
 
 
                 Intent i = new Intent(ProductView.this, MainActivity.class);
@@ -388,7 +388,7 @@ public class ProductView extends AppCompatActivity  {
 
         db.insert(MyHelper.ACCOUNT_TABLE_NAME, null, values);
 
-//        queryAccount();
+//        queryAccount();;
     }
 
 
